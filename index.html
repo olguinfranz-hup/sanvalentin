@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti Vania ❤️</title>
+
+<style>
+body {
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    text-align: center;
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+h1 {
+    color: #ff4d6d;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 20px;
+    transition: 0.3s;
+}
+
+#yes {
+    background-color: #ff4d6d;
+    color: white;
+}
+
+#yes:hover {
+    transform: scale(1.1);
+}
+
+#no {
+    background-color: #ccc;
+}
+
+/* corazones */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 20px;
+    animation: floatUp 4s linear infinite;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>¿Aceptas ser mi San Valentín Vania? 💖</h1>
+    <button id="yes" onclick="aceptar()">Sí 💖</button>
+    <button id="no">No 😅</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+
+let scale = 1;
+let clicks = 0;
+
+const mensajes = [
+    "¿Segura? 😊",
+    "Piénsalo otra vez 🙈",
+    "Prometo que será algo bonito ✨",
+    "Solo una salida tranquila 😌",
+    "Bueno… lo sigo intentando 😅"
+];
+
+// mover botón NO
+noBtn.addEventListener("mouseover", moverNo);
+noBtn.addEventListener("click", moverNo);
+
+function moverNo() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    // cambiar texto
+    if (clicks < mensajes.length) {
+        noBtn.textContent = mensajes[clicks];
+    }
+
+    // agrandar SI
+    scale += 0.15;
+    yesBtn.style.transform = `scale(${scale})`;
+
+    clicks++;
+
+    // desaparecer NO
+    if (clicks > mensajes.length) {
+        noBtn.style.display = "none";
+    }
+}
+
+function aceptar() {
+    document.body.innerHTML = `
+    <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(to right, #ff9a9e, #fad0c4);font-family:Arial;">
+        <div style="background:white;padding:40px;border-radius:20px;text-align:center;max-width:400px;">
+            <h1 style="color:#ff4d6d;">Me alegra que hayas dicho que sí 😊</h1>
+            <p style="font-size:20px;">
+                Sé que estás enfocada en tu trabajo y lo admiro mucho.<br><br>  
+                Cuando regreses a la ciudad, me encantaría invitarte a salir
+                y compartir un momento bonito contigo.<br><br>
+                Nada complicado… solo algo sencillo y especial ✨
+            </p>
+        </div>
+    </div>
+    `;
+    crearCorazones();
+}
+
+// corazones flotando
+function crearCorazones() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+    }, 300);
+}
+</script>
+
+</body>
+</html>
